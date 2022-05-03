@@ -14,10 +14,12 @@ import pandas as pd
 
 fruit_list = pd.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 
-fruit_selected = streamlit.multiselect("Pick some fruits:", list(fruit_list.index),['Avocado','Strawberries'])
+fruit_selected = streamlit.multiselect("Pick some fruits:", list(fruit_list.index))
 fruits_to_show = fruit_list.loc[fruit_selected]
 
 streamlit.dataframe(fruits_to_show)
+
+streamlit.header('Fruityvice Fruit Advice')
 
 import requests
 fruitvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
