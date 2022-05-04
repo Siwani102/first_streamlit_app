@@ -15,7 +15,6 @@ import pandas as pd
 fruit_list = pd.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 
 fruit_selected = streamlit.multiselect("Pick some fruits:", list(fruit_list.index))
-fruits_to_show = fruit_list.loc[fruit_selected]
 
 streamlit.dataframe(fruits_to_show)
 
@@ -25,6 +24,7 @@ streamlit.write('The user entered ', fruit_choice)
 
 import requests
 
+fruits_to_show = fruit_list.loc[fruit_selected]
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+"kiwi")
 
 fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
@@ -36,7 +36,7 @@ import snowflake.connector
 
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
-my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()")
+my_cur.execute("SELECT * from frut_load_list")
 my_data_row = my_cur.fetchone()
-streamlit.text("Hello from Snowflake:")
+streamlit.text("HThe fruit load list contains:")
 streamlit.text(my_data_row)
